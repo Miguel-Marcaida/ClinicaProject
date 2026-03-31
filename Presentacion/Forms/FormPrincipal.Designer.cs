@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            btnProbarConexion = new Button();
+            SuspendLayout();
+            // 
+            // btnProbarConexion
+            // 
+            btnProbarConexion.Location = new Point(160, 143);
+            btnProbarConexion.Name = "btnProbarConexion";
+            btnProbarConexion.Size = new Size(133, 36);
+            btnProbarConexion.TabIndex = 0;
+            btnProbarConexion.Text = "Probar Conexion";
+            btnProbarConexion.UseVisualStyleBackColor = true;
+            btnProbarConexion.Click += btnProbarConexion_Click;
+            // 
+            // FormPrincipal
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnProbarConexion);
+            Name = "FormPrincipal";
+            Text = "Form1";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnProbarConexion;
     }
 }
