@@ -1,49 +1,45 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;//nueva libreria para leer el app.config
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace Datos.Conexion
 {
     public class ConexionDB
     {
-        private readonly string cadenaConexion = "Server=localhost;Database=clinica_db;Uid=root;Pwd='';";
 
+        // Leemos la configuración por su nombre "CadenaClinica"
+        private readonly string cadena = ConfigurationManager.ConnectionStrings["CadenaClinica"].ConnectionString;
 
-        public MySqlConnection CrearConexion()
+        public MySqlConnection EstablecerConexion()
         {
-            MySqlConnection cadena = new MySqlConnection();
+            MySqlConnection conexion = new MySqlConnection(cadena);
             try
             {
-                cadena.ConnectionString = cadenaConexion;
+                if (conexion.State == ConnectionState.Closed)
+                {
+                    conexion.Open();
+                }
+                return conexion;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                cadena = null;
-                throw ex;
+                // Esto te va a decir exactamente qué falló (pass, server, etc.)
+                throw new Exception("Error de conexión: " + ex.Message);
             }
-            return cadena;
         }
 
-        // Método para testear si la base responde (Útil para el WinForm inicial)
-        public bool ProbarConexion()
+        public void CerrarConexion(MySqlConnection conexion)
         {
-            using (var conn = CrearConexion())
+            if (conexion != null && conexion.State == ConnectionState.Open)
             {
-                try
-                {
-                    conn.Open();
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                conexion.Close();
             }
         }
-
 
     }
 }

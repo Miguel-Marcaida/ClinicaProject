@@ -1,4 +1,4 @@
-
+﻿
 using Datos.Conexion;
 
 namespace Presentacion
@@ -12,14 +12,27 @@ namespace Presentacion
 
         private void btnProbarConexion_Click(object sender, EventArgs e)
         {
-            var conexion = new ConexionDB();
-            if (conexion.ProbarConexion())
+            // Instanciamos tu clase de la capa de Datos
+            Datos.Conexion.ConexionDB conexion = new Datos.Conexion.ConexionDB();
+
+            try
             {
-                MessageBox.Show("�Conexi�n Exitosa con MySQL!");
+                // Intentamos abrir el caño
+                using (var con = conexion.EstablecerConexion())
+                {
+                    if (con.State == System.Data.ConnectionState.Open)
+                    {
+                        MessageBox.Show("✅ ¡Conexión Exitosa! C# y MySQL ya se hablan.",
+                                        "Estado de la Base", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                // Al usar 'using', la conexión se cierra sola al terminar el bloque, es más limpio.
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Error al conectar. Revisar cadena de conexi�n.");
+                // Si algo falla (contraseña mal, servidor apagado, etc.) te lo dice acá
+                MessageBox.Show("❌ Error: " + ex.Message,
+                                "Fallo de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
