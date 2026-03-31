@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Conexion\" />
     <Folder Include="Scripts\" />
     <Folder Include="Repositorios\" />
   </ItemGroup>
