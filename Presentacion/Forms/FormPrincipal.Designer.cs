@@ -29,31 +29,245 @@
         private void InitializeComponent()
         {
             btnProbarConexion = new Button();
+            pnlMenu = new Panel();
+            btnConfig = new Button();
+            btnMedicos = new Button();
+            btnPacientes = new Button();
+            btnTurnos = new Button();
+            pnlLogo = new Panel();
+            btnSalir = new Button();
+            pnlContenedor = new Panel();
+            pnlBarraTItulo = new Panel();
+            btnCerrar = new Button();
+            lblUsuario = new Label();
+            lblModulo = new Label();
+            pnlMenu.SuspendLayout();
+            pnlContenedor.SuspendLayout();
+            pnlBarraTItulo.SuspendLayout();
             SuspendLayout();
             // 
             // btnProbarConexion
             // 
-            btnProbarConexion.Location = new Point(160, 143);
+            btnProbarConexion.Location = new Point(705, 519);
             btnProbarConexion.Name = "btnProbarConexion";
-            btnProbarConexion.Size = new Size(133, 36);
+            btnProbarConexion.Size = new Size(120, 39);
             btnProbarConexion.TabIndex = 0;
             btnProbarConexion.Text = "Probar Conexion";
             btnProbarConexion.UseVisualStyleBackColor = true;
             btnProbarConexion.Click += btnProbarConexion_Click;
             // 
+            // pnlMenu
+            // 
+            pnlMenu.BackColor = Color.FromArgb(30, 30, 30);
+            pnlMenu.Controls.Add(btnConfig);
+            pnlMenu.Controls.Add(btnMedicos);
+            pnlMenu.Controls.Add(btnPacientes);
+            pnlMenu.Controls.Add(btnTurnos);
+            pnlMenu.Controls.Add(pnlLogo);
+            pnlMenu.Controls.Add(btnSalir);
+            pnlMenu.Dock = DockStyle.Left;
+            pnlMenu.Location = new Point(0, 0);
+            pnlMenu.Name = "pnlMenu";
+            pnlMenu.Size = new Size(230, 650);
+            pnlMenu.TabIndex = 1;
+            // 
+            // btnConfig
+            // 
+            btnConfig.Dock = DockStyle.Top;
+            btnConfig.FlatAppearance.BorderSize = 0;
+            btnConfig.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnConfig.FlatStyle = FlatStyle.Flat;
+            btnConfig.Font = new Font("Segoe UI", 11.25F);
+            btnConfig.ForeColor = Color.White;
+            btnConfig.Location = new Point(0, 240);
+            btnConfig.Name = "btnConfig";
+            btnConfig.Padding = new Padding(15, 0, 0, 0);
+            btnConfig.Size = new Size(230, 60);
+            btnConfig.TabIndex = 5;
+            btnConfig.Text = "⚙️  Configuración";
+            btnConfig.TextAlign = ContentAlignment.MiddleLeft;
+            btnConfig.UseVisualStyleBackColor = true;
+            // 
+            // btnMedicos
+            // 
+            btnMedicos.Dock = DockStyle.Top;
+            btnMedicos.FlatAppearance.BorderSize = 0;
+            btnMedicos.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnMedicos.FlatStyle = FlatStyle.Flat;
+            btnMedicos.Font = new Font("Segoe UI", 11.25F);
+            btnMedicos.ForeColor = Color.White;
+            btnMedicos.Location = new Point(0, 180);
+            btnMedicos.Name = "btnMedicos";
+            btnMedicos.Padding = new Padding(15, 0, 0, 0);
+            btnMedicos.Size = new Size(230, 60);
+            btnMedicos.TabIndex = 4;
+            btnMedicos.Text = "\U0001fa7a  Cuerpo Médico";
+            btnMedicos.TextAlign = ContentAlignment.MiddleLeft;
+            btnMedicos.UseVisualStyleBackColor = true;
+            // 
+            // btnPacientes
+            // 
+            btnPacientes.Dock = DockStyle.Top;
+            btnPacientes.FlatAppearance.BorderSize = 0;
+            btnPacientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnPacientes.FlatStyle = FlatStyle.Flat;
+            btnPacientes.Font = new Font("Segoe UI", 11.25F);
+            btnPacientes.ForeColor = Color.White;
+            btnPacientes.Location = new Point(0, 120);
+            btnPacientes.Name = "btnPacientes";
+            btnPacientes.Padding = new Padding(15, 0, 0, 0);
+            btnPacientes.Size = new Size(230, 60);
+            btnPacientes.TabIndex = 3;
+            btnPacientes.Text = "👤  Gestión de Pacientes";
+            btnPacientes.TextAlign = ContentAlignment.MiddleLeft;
+            btnPacientes.UseVisualStyleBackColor = true;
+            btnPacientes.Click += btnPacientes_Click;
+            // 
+            // btnTurnos
+            // 
+            btnTurnos.Dock = DockStyle.Top;
+            btnTurnos.FlatAppearance.BorderSize = 0;
+            btnTurnos.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnTurnos.FlatStyle = FlatStyle.Flat;
+            btnTurnos.Font = new Font("Segoe UI", 11.25F);
+            btnTurnos.ForeColor = Color.White;
+            btnTurnos.Location = new Point(0, 60);
+            btnTurnos.Name = "btnTurnos";
+            btnTurnos.Padding = new Padding(15, 0, 0, 0);
+            btnTurnos.Size = new Size(230, 60);
+            btnTurnos.TabIndex = 2;
+            btnTurnos.Text = "📅  Agenda de Turnos";
+            btnTurnos.TextAlign = ContentAlignment.MiddleLeft;
+            btnTurnos.UseVisualStyleBackColor = true;
+            btnTurnos.Click += btnTurnos_Click;
+            // 
+            // pnlLogo
+            // 
+            pnlLogo.Dock = DockStyle.Top;
+            pnlLogo.Location = new Point(0, 0);
+            pnlLogo.Name = "pnlLogo";
+            pnlLogo.Size = new Size(230, 60);
+            pnlLogo.TabIndex = 7;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Dock = DockStyle.Bottom;
+            btnSalir.FlatAppearance.BorderSize = 0;
+            btnSalir.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnSalir.FlatStyle = FlatStyle.Flat;
+            btnSalir.Font = new Font("Segoe UI", 11.25F);
+            btnSalir.ForeColor = Color.White;
+            btnSalir.Location = new Point(0, 590);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Padding = new Padding(15, 0, 0, 0);
+            btnSalir.Size = new Size(230, 60);
+            btnSalir.TabIndex = 6;
+            btnSalir.Text = "❌  Cerrar Sesión";
+            btnSalir.TextAlign = ContentAlignment.MiddleLeft;
+            btnSalir.UseVisualStyleBackColor = true;
+            // 
+            // pnlContenedor
+            // 
+            pnlContenedor.BackColor = SystemColors.ButtonFace;
+            pnlContenedor.Controls.Add(btnProbarConexion);
+            pnlContenedor.Dock = DockStyle.Fill;
+            pnlContenedor.Location = new Point(230, 60);
+            pnlContenedor.Name = "pnlContenedor";
+            pnlContenedor.Size = new Size(870, 590);
+            pnlContenedor.TabIndex = 2;
+            // 
+            // pnlBarraTItulo
+            // 
+            pnlBarraTItulo.BackColor = Color.FromArgb(0, 122, 204);
+            pnlBarraTItulo.Controls.Add(btnCerrar);
+            pnlBarraTItulo.Controls.Add(lblUsuario);
+            pnlBarraTItulo.Controls.Add(lblModulo);
+            pnlBarraTItulo.Dock = DockStyle.Top;
+            pnlBarraTItulo.ForeColor = Color.FromArgb(31, 41, 55);
+            pnlBarraTItulo.Location = new Point(230, 0);
+            pnlBarraTItulo.Name = "pnlBarraTItulo";
+            pnlBarraTItulo.Size = new Size(870, 60);
+            pnlBarraTItulo.TabIndex = 3;
+            pnlBarraTItulo.MouseDown += pnlBarraTItulo_MouseDown;
+            pnlBarraTItulo.MouseMove += pnlBarraTItulo_MouseMove;
+            // 
+            // btnCerrar
+            // 
+            btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCerrar.FlatAppearance.BorderSize = 0;
+            btnCerrar.FlatAppearance.MouseOverBackColor = Color.FromArgb(232, 17, 35);
+            btnCerrar.FlatStyle = FlatStyle.Flat;
+            btnCerrar.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCerrar.ForeColor = Color.White;
+            btnCerrar.Location = new Point(830, 10);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new Size(35, 35);
+            btnCerrar.TabIndex = 2;
+            btnCerrar.Text = "X";
+            btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUsuario.ForeColor = Color.White;
+            lblUsuario.Location = new Point(550, 22);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(117, 17);
+            lblUsuario.TabIndex = 1;
+            lblUsuario.Text = "Usuario: [Nombre]";
+            lblUsuario.MouseDown += lblUsuario_MouseDown;
+            lblUsuario.MouseMove += lblUsuario_MouseMove;
+            // 
+            // lblModulo
+            // 
+            lblModulo.AutoSize = true;
+            lblModulo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblModulo.ForeColor = Color.White;
+            lblModulo.Location = new Point(20, 18);
+            lblModulo.Name = "lblModulo";
+            lblModulo.Size = new Size(71, 25);
+            lblModulo.TabIndex = 0;
+            lblModulo.Text = "INICIO";
+            lblModulo.MouseDown += lblModulo_MouseDown;
+            lblModulo.MouseMove += lblModulo_MouseMove;
+            // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnProbarConexion);
+            BackColor = SystemColors.ButtonFace;
+            ClientSize = new Size(1100, 650);
+            Controls.Add(pnlContenedor);
+            Controls.Add(pnlBarraTItulo);
+            Controls.Add(pnlMenu);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "FormPrincipal";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Sistema de Gestion Clinica";
+            pnlMenu.ResumeLayout(false);
+            pnlContenedor.ResumeLayout(false);
+            pnlBarraTItulo.ResumeLayout(false);
+            pnlBarraTItulo.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Button btnProbarConexion;
+        private Panel pnlMenu;
+        private Panel pnlContenedor;
+        private Panel pnlBarraTItulo;
+        private Button btnCerrar;
+        private Label lblUsuario;
+        private Label lblModulo;
+        private Button btnSalir;
+        private Button btnConfig;
+        private Button btnMedicos;
+        private Button btnPacientes;
+        private Button btnTurnos;
+        private Panel pnlLogo;
     }
 }

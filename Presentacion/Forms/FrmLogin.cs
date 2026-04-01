@@ -48,10 +48,14 @@ namespace Presentacion.Forms
                 MessageBox.Show($"Bienvenido, {usuarioLogueado.username}!", "Sistema Clínica",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Si el login es exitoso, podrías abrir el FormPrincipal y cerrar este formulario
-                FormPrincipal principal = new FormPrincipal();
+                FormPrincipal principal = new FormPrincipal(usuarioLogueado);
+
+                // Si cierran el Principal, que se cierre toda la aplicación
+                principal.FormClosed += (s, args) => Application.Exit();
+                // -------------------
                 principal.Show();
                 this.Hide();
-                MessageBox.Show("¡Login exitoso! (Lógica de validación no implementada aún)");
+                
             }
             catch (Exception ex)
             {
