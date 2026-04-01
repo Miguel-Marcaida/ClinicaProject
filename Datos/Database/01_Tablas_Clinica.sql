@@ -127,3 +127,5 @@ CREATE TABLE auditoria (
     detalle TEXT,
     CONSTRAINT fk_audi_user FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
+
+
