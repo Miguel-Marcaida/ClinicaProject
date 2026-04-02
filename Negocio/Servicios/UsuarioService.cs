@@ -32,7 +32,10 @@ namespace Negocio.Servicios
             {
                 throw new UnauthorizedAccessException("El usuario no está activo. Contacta al administrador.");
             }
-
+            // --- AQUÍ LA MAGIA DE LA SEGURIDAD ---
+            // 4- Una vez que sabemos que es él, le cargamos sus permisos
+            // Invocamos al nuevo método del repo que creamos antes
+            usuario.permisos = repo.ObtenerPermisos(usuario.id_usuario);
             //si todo está bien, devolver el usuario encontrado
             return usuario;
         }

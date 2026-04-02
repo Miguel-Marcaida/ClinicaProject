@@ -1,6 +1,6 @@
 ﻿namespace Presentacion
 {
-    partial class FormPrincipal
+    partial class FrmPrincipal
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,9 +34,12 @@
             btnMedicos = new Button();
             btnPacientes = new Button();
             btnTurnos = new Button();
+            btnInicio = new Button();
             pnlLogo = new Panel();
-            btnSalir = new Button();
+            btnCerrarSesion = new Button();
             pnlContenedor = new Panel();
+            lblDetalleCuerpo = new Label();
+            lblBienvenida = new Label();
             pnlBarraTItulo = new Panel();
             btnCerrar = new Button();
             lblUsuario = new Label();
@@ -63,12 +66,13 @@
             pnlMenu.Controls.Add(btnMedicos);
             pnlMenu.Controls.Add(btnPacientes);
             pnlMenu.Controls.Add(btnTurnos);
+            pnlMenu.Controls.Add(btnInicio);
             pnlMenu.Controls.Add(pnlLogo);
-            pnlMenu.Controls.Add(btnSalir);
+            pnlMenu.Controls.Add(btnCerrarSesion);
             pnlMenu.Dock = DockStyle.Left;
-            pnlMenu.Location = new Point(0, 0);
+            pnlMenu.Location = new Point(0, 60);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(230, 650);
+            pnlMenu.Size = new Size(230, 590);
             pnlMenu.TabIndex = 1;
             // 
             // btnConfig
@@ -79,7 +83,7 @@
             btnConfig.FlatStyle = FlatStyle.Flat;
             btnConfig.Font = new Font("Segoe UI", 11.25F);
             btnConfig.ForeColor = Color.White;
-            btnConfig.Location = new Point(0, 240);
+            btnConfig.Location = new Point(0, 300);
             btnConfig.Name = "btnConfig";
             btnConfig.Padding = new Padding(15, 0, 0, 0);
             btnConfig.Size = new Size(230, 60);
@@ -96,7 +100,7 @@
             btnMedicos.FlatStyle = FlatStyle.Flat;
             btnMedicos.Font = new Font("Segoe UI", 11.25F);
             btnMedicos.ForeColor = Color.White;
-            btnMedicos.Location = new Point(0, 180);
+            btnMedicos.Location = new Point(0, 240);
             btnMedicos.Name = "btnMedicos";
             btnMedicos.Padding = new Padding(15, 0, 0, 0);
             btnMedicos.Size = new Size(230, 60);
@@ -113,7 +117,7 @@
             btnPacientes.FlatStyle = FlatStyle.Flat;
             btnPacientes.Font = new Font("Segoe UI", 11.25F);
             btnPacientes.ForeColor = Color.White;
-            btnPacientes.Location = new Point(0, 120);
+            btnPacientes.Location = new Point(0, 180);
             btnPacientes.Name = "btnPacientes";
             btnPacientes.Padding = new Padding(15, 0, 0, 0);
             btnPacientes.Size = new Size(230, 60);
@@ -131,7 +135,7 @@
             btnTurnos.FlatStyle = FlatStyle.Flat;
             btnTurnos.Font = new Font("Segoe UI", 11.25F);
             btnTurnos.ForeColor = Color.White;
-            btnTurnos.Location = new Point(0, 60);
+            btnTurnos.Location = new Point(0, 120);
             btnTurnos.Name = "btnTurnos";
             btnTurnos.Padding = new Padding(15, 0, 0, 0);
             btnTurnos.Size = new Size(230, 60);
@@ -141,6 +145,24 @@
             btnTurnos.UseVisualStyleBackColor = true;
             btnTurnos.Click += btnTurnos_Click;
             // 
+            // btnInicio
+            // 
+            btnInicio.Dock = DockStyle.Top;
+            btnInicio.FlatAppearance.BorderSize = 0;
+            btnInicio.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnInicio.FlatStyle = FlatStyle.Flat;
+            btnInicio.Font = new Font("Segoe UI", 11.25F);
+            btnInicio.ForeColor = Color.White;
+            btnInicio.Location = new Point(0, 60);
+            btnInicio.Name = "btnInicio";
+            btnInicio.Padding = new Padding(15, 0, 0, 0);
+            btnInicio.Size = new Size(230, 60);
+            btnInicio.TabIndex = 8;
+            btnInicio.Text = "🏠  INICIO";
+            btnInicio.TextAlign = ContentAlignment.MiddleLeft;
+            btnInicio.UseVisualStyleBackColor = true;
+            btnInicio.Click += btnInicio_Click;
+            // 
             // pnlLogo
             // 
             pnlLogo.Dock = DockStyle.Top;
@@ -149,32 +171,54 @@
             pnlLogo.Size = new Size(230, 60);
             pnlLogo.TabIndex = 7;
             // 
-            // btnSalir
+            // btnCerrarSesion
             // 
-            btnSalir.Dock = DockStyle.Bottom;
-            btnSalir.FlatAppearance.BorderSize = 0;
-            btnSalir.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
-            btnSalir.FlatStyle = FlatStyle.Flat;
-            btnSalir.Font = new Font("Segoe UI", 11.25F);
-            btnSalir.ForeColor = Color.White;
-            btnSalir.Location = new Point(0, 590);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Padding = new Padding(15, 0, 0, 0);
-            btnSalir.Size = new Size(230, 60);
-            btnSalir.TabIndex = 6;
-            btnSalir.Text = "❌  Cerrar Sesión";
-            btnSalir.TextAlign = ContentAlignment.MiddleLeft;
-            btnSalir.UseVisualStyleBackColor = true;
+            btnCerrarSesion.Dock = DockStyle.Bottom;
+            btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            btnCerrarSesion.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
+            btnCerrarSesion.Font = new Font("Segoe UI", 11.25F);
+            btnCerrarSesion.ForeColor = Color.White;
+            btnCerrarSesion.Location = new Point(0, 530);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Padding = new Padding(15, 0, 0, 0);
+            btnCerrarSesion.Size = new Size(230, 60);
+            btnCerrarSesion.TabIndex = 6;
+            btnCerrarSesion.Text = "➔  Cerrar Sesión";
+            btnCerrarSesion.TextAlign = ContentAlignment.MiddleLeft;
+            btnCerrarSesion.UseVisualStyleBackColor = true;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
             // pnlContenedor
             // 
             pnlContenedor.BackColor = SystemColors.ButtonFace;
+            pnlContenedor.Controls.Add(lblDetalleCuerpo);
             pnlContenedor.Controls.Add(btnProbarConexion);
+            pnlContenedor.Controls.Add(lblBienvenida);
             pnlContenedor.Dock = DockStyle.Fill;
-            pnlContenedor.Location = new Point(230, 60);
+            pnlContenedor.Location = new Point(0, 0);
             pnlContenedor.Name = "pnlContenedor";
-            pnlContenedor.Size = new Size(870, 590);
+            pnlContenedor.Size = new Size(1100, 650);
             pnlContenedor.TabIndex = 2;
+            // 
+            // lblDetalleCuerpo
+            // 
+            lblDetalleCuerpo.AutoSize = true;
+            lblDetalleCuerpo.Location = new Point(321, 579);
+            lblDetalleCuerpo.Name = "lblDetalleCuerpo";
+            lblDetalleCuerpo.Size = new Size(48, 15);
+            lblDetalleCuerpo.TabIndex = 2;
+            lblDetalleCuerpo.Text = "Detalles";
+            // 
+            // lblBienvenida
+            // 
+            lblBienvenida.AutoSize = true;
+            lblBienvenida.Font = new Font("Roboto Bk", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblBienvenida.Location = new Point(321, 477);
+            lblBienvenida.Name = "lblBienvenida";
+            lblBienvenida.Size = new Size(186, 23);
+            lblBienvenida.TabIndex = 1;
+            lblBienvenida.Text = "Bienvenidos a todos";
             // 
             // pnlBarraTItulo
             // 
@@ -184,9 +228,9 @@
             pnlBarraTItulo.Controls.Add(lblModulo);
             pnlBarraTItulo.Dock = DockStyle.Top;
             pnlBarraTItulo.ForeColor = Color.FromArgb(31, 41, 55);
-            pnlBarraTItulo.Location = new Point(230, 0);
+            pnlBarraTItulo.Location = new Point(0, 0);
             pnlBarraTItulo.Name = "pnlBarraTItulo";
-            pnlBarraTItulo.Size = new Size(870, 60);
+            pnlBarraTItulo.Size = new Size(1100, 60);
             pnlBarraTItulo.TabIndex = 3;
             pnlBarraTItulo.MouseDown += pnlBarraTItulo_MouseDown;
             pnlBarraTItulo.MouseMove += pnlBarraTItulo_MouseMove;
@@ -199,7 +243,7 @@
             btnCerrar.FlatStyle = FlatStyle.Flat;
             btnCerrar.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCerrar.ForeColor = Color.White;
-            btnCerrar.Location = new Point(830, 10);
+            btnCerrar.Location = new Point(1060, 10);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(35, 35);
             btnCerrar.TabIndex = 2;
@@ -213,7 +257,7 @@
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsuario.ForeColor = Color.White;
-            lblUsuario.Location = new Point(550, 22);
+            lblUsuario.Location = new Point(880, 22);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(117, 17);
             lblUsuario.TabIndex = 1;
@@ -234,21 +278,23 @@
             lblModulo.MouseDown += lblModulo_MouseDown;
             lblModulo.MouseMove += lblModulo_MouseMove;
             // 
-            // FormPrincipal
+            // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1100, 650);
-            Controls.Add(pnlContenedor);
-            Controls.Add(pnlBarraTItulo);
             Controls.Add(pnlMenu);
+            Controls.Add(pnlBarraTItulo);
+            Controls.Add(pnlContenedor);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormPrincipal";
+            Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de Gestion Clinica";
+            Load += FrmPrincipal_Load;
             pnlMenu.ResumeLayout(false);
             pnlContenedor.ResumeLayout(false);
+            pnlContenedor.PerformLayout();
             pnlBarraTItulo.ResumeLayout(false);
             pnlBarraTItulo.PerformLayout();
             ResumeLayout(false);
@@ -263,11 +309,14 @@
         private Button btnCerrar;
         private Label lblUsuario;
         private Label lblModulo;
-        private Button btnSalir;
+        private Button btnCerrarSesion;
         private Button btnConfig;
         private Button btnMedicos;
         private Button btnPacientes;
         private Button btnTurnos;
         private Panel pnlLogo;
+        private Label lblBienvenida;
+        private Label lblDetalleCuerpo;
+        private Button btnInicio;
     }
 }

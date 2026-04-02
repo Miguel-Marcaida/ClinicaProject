@@ -41,21 +41,24 @@ namespace Presentacion.Forms
         {
             try
             {
-                // Aquí iría la lógica para validar el usuario, por ejemplo:
+                // 1. Obtenemos el usuario del servicio (trae datos y permisos)
                 Usuario usuarioLogueado = _usuarioService.Login(txtUser.Text, txtPass.Text);
 
-                // Si llegamos acá, los datos son correctos y el usuario está ACTIVO
+                // 2. ¡ESTA ES LA LÍNEA CLAVE! Guardamos el usuario en la sesión global
+                // Sin esto, el resto del sistema no sabe quién entró.
+                Negocio.Soporte.SesionUsuario.IniciarSesion(usuarioLogueado);
+
                 MessageBox.Show($"Bienvenido, {usuarioLogueado.username}!", "Sistema Clínica",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Si el login es exitoso, podrías abrir el FormPrincipal y cerrar este formulario
-                FormPrincipal principal = new FormPrincipal(usuarioLogueado);
 
-                // Si cierran el Principal, que se cierre toda la aplicación
+                // 3. Abrimos el principal (ya no hace falta pasarle el usuario por parámetro 
+                // porque ya está en la SesionUsuario, pero podés dejarlo si querés)
+                FrmPrincipal principal = new FrmPrincipal();
+
                 principal.FormClosed += (s, args) => Application.Exit();
-                // -------------------
                 principal.Show();
                 this.Hide();
-                
+
             }
             catch (Exception ex)
             {
