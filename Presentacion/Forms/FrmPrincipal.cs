@@ -11,12 +11,13 @@ namespace Presentacion
     {
 
         private Point mouseLocation;
+        private bool _isLoggingOut = false; // flag para distinguir
         public FrmPrincipal()
         {
             InitializeComponent();
             // Configuraciones estéticas iniciales
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea; // Evita que al maximizar tape la barra de tareas
-        
+           
         }
 
         #region Logica para mover la ventana sin bordes
@@ -43,31 +44,30 @@ namespace Presentacion
         private void lblUsuario_MouseDown(object sender, MouseEventArgs e) => Common_MouseDown(sender, e);
         private void lblUsuario_MouseMove(object sender, MouseEventArgs e) => Common_MouseMove(sender, e);
 
-       
+
 
         #endregion
 
 
         #region Metodos para abrir formularios dentro del panel contenedor
 
+
         private void AbrirFormularioEnPanel(object formHijo, string nombrePermiso)
         {
-            // Validamos ANTES de hacer cualquier movimiento visual
             if (!SesionUsuario.TienePermiso(nombrePermiso))
             {
                 MessageBox.Show("No tenés permisos para acceder a este módulo.",
                                 "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
-            // Ocultamos los labels de bienvenida antes de cargar el form
+
             lblBienvenida.Visible = false;
             lblDetalleCuerpo.Visible = false;
-            //if (picUser != null) picUser.Visible = false;
 
-            // Liberamos y limpiamos controles previos del panel
-            if (this.pnlContenedor.Controls.Count > 0)
+            // Removemos dinámicos de forma segura (cerrar forms antes de dispose)
+            this.pnlContenedor.SuspendLayout();
+            try
             {
-                // No disponer los labels persistentes: solo eliminar/dispone los controles dinámicos
                 var toRemove = this.pnlContenedor.Controls
                                 .Cast<Control>()
                                 .Where(c => c != lblBienvenida && c != lblDetalleCuerpo)
@@ -76,36 +76,60 @@ namespace Presentacion
                 foreach (var c in toRemove)
                 {
                     this.pnlContenedor.Controls.Remove(c);
-                    c.Dispose();
+                    if (c is Form childForm)
+                    {
+                        try { childForm.Close(); } catch { /* ignore */ }
+                        childForm.Dispose();
+                    }
+                    else
+                    {
+                        c.Dispose();
+                    }
                 }
-            }
 
-            // Comprobación nula y seguridad de tipo
-            if (formHijo is not Form fh)
+                if (formHijo is not Form fh)
+                {
+                    MessageBox.Show("El objeto proporcionado no es un formulario válido.",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                fh.TopLevel = false;
+                fh.FormBorderStyle = FormBorderStyle.None;
+                fh.Dock = DockStyle.Fill;
+
+                this.pnlContenedor.Controls.Add(fh);
+                fh.BringToFront();
+                fh.Show();
+            }
+            finally
             {
-                MessageBox.Show("El objeto proporcionado no es un formulario válido.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                this.pnlContenedor.ResumeLayout();
             }
-
-           // Form fh = formHijo as Form;
-            fh.TopLevel = false;
-            fh.FormBorderStyle = FormBorderStyle.None;
-            fh.Dock = DockStyle.Fill;
-            //fh.BackColor = Color.Red;
-
-            this.pnlContenedor.Controls.Add(fh);
-            //this.pnlContenedor.Tag = fh;
-            fh.BringToFront();
-            fh.Show();
         }
-
 
 
         #endregion
 
 
-       
+        private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Si se está cerrando por logout programático, no preguntar de nuevo
+            if (_isLoggingOut)
+            {
+                return;
+            }
+
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                var resp = MessageBox.Show("¿Desea salir del sistema?", "Cerrar",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resp != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
@@ -156,19 +180,22 @@ namespace Presentacion
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            DialogResult resultado = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
-                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var resultado = MessageBox.Show("¿Está seguro que desea cerrar sesión?",
+                 "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
             {
-                // 1. Limpiamos la sesión en memoria
-                SesionUsuario.UsuarioLogueado = null;
+                // 1. Indicamos que es logout para evitar la confirmación en FormClosing
+                _isLoggingOut = true;
 
-                // 2. Cerramos este formulario y abrimos el Login
-                this.Hide(); // O this.Close() según cómo lances el Main
-                FrmLogin login = new FrmLogin();
-                login.Show();
+                // 2. Limpiamos la sesión en memoria
+                SesionUsuario.CerrarSesion();
+
+                // 3. Solo cerramos este formulario: el login original (oculto) se mostrará
+                //    porque en FrmLogin registramos principal.FormClosed para mostrar el login.
+                this.Close();
             }
+
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
@@ -184,80 +211,89 @@ namespace Presentacion
 
 
         #region metodos
-        private void ResaltarBotonActivo(Button boton)
+        private void ResaltarBotonActivo(Button botonSeleccionado)
         {
-            // Resetear todos los botones a color normal (Negro/Gris)
-            btnInicio.BackColor = Color.FromArgb(30, 30, 30);
-            btnPacientes.BackColor = Color.FromArgb(30, 30, 30);
-            // ... repetir para los otros
+            // Buscamos todos los botones dentro del panel lateral
+            foreach (var boton in pnlMenu.Controls.OfType<Button>())
+            {
+                boton.BackColor = Color.FromArgb(30, 30, 30); // Color base
+            }
 
-            // Resaltar el que tocamos (Un gris un poco más claro o el color de tu logo)
-            boton.BackColor = Color.FromArgb(50, 50, 50);
+            // Resaltamos solo el activo
+            botonSeleccionado.BackColor = Color.FromArgb(50, 50, 50);
         }
-
-
 
         private void MostrarBienvenida()
         {
-            
-            // No limpiamos todo: solo removemos controles dinámicos para preservar las etiquetas persistentes
-            var toRemove = this.pnlContenedor.Controls
-                            .Cast<Control>()
-                            .Where(c => c != lblBienvenida && c != lblDetalleCuerpo)
-                            .ToList();
-
-            foreach (var c in toRemove)
+            // Removemos dinámicos de forma segura, preservando labels
+            this.pnlContenedor.SuspendLayout();
+            try
             {
-                this.pnlContenedor.Controls.Remove(c);
-                c.Dispose();
-            }
+                var toRemove = this.pnlContenedor.Controls
+                                .Cast<Control>()
+                                .Where(c => c != lblBienvenida && c != lblDetalleCuerpo)
+                                .ToList();
 
-            if (!pnlContenedor.Controls.Contains(lblBienvenida))
+                foreach (var c in toRemove)
+                {
+                    this.pnlContenedor.Controls.Remove(c);
+                    if (c is Form childForm)
+                    {
+                        try { childForm.Close(); } catch { /* ignore */ }
+                        childForm.Dispose();
+                    }
+                    else
+                    {
+                        c.Dispose();
+                    }
+                }
+
+                if (!pnlContenedor.Controls.Contains(lblBienvenida))
+                    this.pnlContenedor.Controls.Add(lblBienvenida);
+
+                if (!pnlContenedor.Controls.Contains(lblDetalleCuerpo))
+                    this.pnlContenedor.Controls.Add(lblDetalleCuerpo);
+
+                if (SesionUsuario.UsuarioLogueado != null)
+                {
+                    string saludo = DateTime.Now.Hour < 12 ? "Buenos días," :
+                                    DateTime.Now.Hour < 20 ? "Buenas tardes," : "Buenas noches,";
+                    string nombreUsuario = SesionUsuario.UsuarioLogueado.username.ToUpper();
+
+                    lblBienvenida.Text = $"{saludo}\n{nombreUsuario}";
+                    lblBienvenida.Font = new Font("Segoe UI Semibold", 28, FontStyle.Bold);
+                    lblBienvenida.ForeColor = Color.FromArgb(45, 45, 48);
+                    lblBienvenida.AutoSize = true;
+                    lblBienvenida.Location = new Point(250, 80);
+
+                    string fechaActual = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy");
+                    string rol = SesionUsuario.UsuarioLogueado.nombre_rol.ToUpper();
+
+                    lblDetalleCuerpo.Text = $"SISTEMA DE GESTIÓN CLÍNICA  |  {rol}\n{fechaActual}";
+                    lblDetalleCuerpo.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+                    lblDetalleCuerpo.ForeColor = Color.DarkGray;
+                    lblDetalleCuerpo.AutoSize = true;
+                    lblDetalleCuerpo.Location = new Point(255, lblBienvenida.Bottom + 15);
+                }
+
+                lblBienvenida.Visible = true;
+                lblDetalleCuerpo.Visible = true;
+                lblBienvenida.BringToFront();
+                lblDetalleCuerpo.BringToFront();
+            }
+            finally
             {
-                this.pnlContenedor.Controls.Add(lblBienvenida);
+                this.pnlContenedor.ResumeLayout();
             }
-
-            if (!pnlContenedor.Controls.Contains(lblDetalleCuerpo))
-            {
-                this.pnlContenedor.Controls.Add(lblDetalleCuerpo);
-            }
-            if (SesionUsuario.UsuarioLogueado != null)
-            {
-                // 1. Lógica de saludo
-                string saludo = DateTime.Now.Hour < 12 ? "Buenos días," :
-                                DateTime.Now.Hour < 20 ? "Buenas tardes," : "Buenas noches,";
-                string nombreUsuario = SesionUsuario.UsuarioLogueado.username.ToUpper();
-
-                // 2. FORMATO DEL TÍTULO (El "Impacto")
-                // Usamos saltos de línea y tabulaciones sutiles para dar aire
-                lblBienvenida.Text = $"{saludo}\n{nombreUsuario}";
-                lblBienvenida.Font = new Font("Segoe UI Semibold", 28, FontStyle.Bold);
-                lblBienvenida.ForeColor = Color.FromArgb(45, 45, 48); // Un gris casi negro, muy elegante
-                lblBienvenida.AutoSize = true;
-                lblBienvenida.Location = new Point(250, 80); // Ajustá estas coordenadas a tu gusto
-
-                // 3. FORMATO DEL DETALLE (La "Info")
-                string fechaActual = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy");
-                string rol = SesionUsuario.UsuarioLogueado.nombre_rol.ToUpper();
-
-                lblDetalleCuerpo.Text = $"SISTEMA DE GESTIÓN CLÍNICA  |  {rol}\n{fechaActual}";
-                lblDetalleCuerpo.Font = new Font("Segoe UI", 10, FontStyle.Regular);
-                lblDetalleCuerpo.ForeColor = Color.DarkGray;
-                lblDetalleCuerpo.AutoSize = true;
-
-                // Lo ubicamos unos píxeles debajo del nombre
-                lblDetalleCuerpo.Location = new Point(255, lblBienvenida.Bottom + 15);
-            }
-
-            lblBienvenida.Visible = true;
-            lblDetalleCuerpo.Visible = true;
-            lblBienvenida.BringToFront();
-            lblDetalleCuerpo.BringToFront();
         }
+
+
+
 
         #endregion
 
 
 
+        
     }
 }

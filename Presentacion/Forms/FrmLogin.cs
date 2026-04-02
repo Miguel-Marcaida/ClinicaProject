@@ -1,5 +1,6 @@
 ﻿using Datos.Entidades;
 using Negocio.Servicios;
+using Negocio.Soporte;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,7 @@ namespace Presentacion.Forms
 
             // Centramos el título manualmente si hace falta
             lblTitulo.Left = (this.Width - lblTitulo.Width) / 2 + 50; // +50 por el panel latera
+            
         }
 
         //boton cerrar
@@ -55,7 +57,32 @@ namespace Presentacion.Forms
                 // porque ya está en la SesionUsuario, pero podés dejarlo si querés)
                 FrmPrincipal principal = new FrmPrincipal();
 
-                principal.FormClosed += (s, args) => Application.Exit();
+                // Al cerrar el formulario principal mostraremos de nuevo este formulario de login
+                // en lugar de terminar la aplicación. Así el usuario puede volver a iniciar sesión.
+                principal.FormClosed += (s, args) =>
+                {
+                    // Limpiamos campos por seguridad y mostramos el login otra vez
+                    try
+                    {
+                        txtPass.Clear();
+                        txtUser.Clear();
+                        SesionUsuario.CerrarSesion();
+
+                        // Mostrar el login y asegurarnos que reciba foco en el campo usuario
+                        this.Show();
+                        this.BringToFront();
+                        this.Activate();
+
+                        // Garantizar que el foco se establezca después del show
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            txtUser.Focus();
+                            txtUser.Select();
+                        }));
+                    }
+                    catch { /* ignore UI errors */ }
+                };
+
                 principal.Show();
                 this.Hide();
 
@@ -67,7 +94,7 @@ namespace Presentacion.Forms
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 txtPass.Clear();
-                txtPass.Focus();
+                txtUser.Focus();
             }
         }
         // Evento del botón de login

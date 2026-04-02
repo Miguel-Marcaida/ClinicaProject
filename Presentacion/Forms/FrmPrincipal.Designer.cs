@@ -279,6 +279,7 @@
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema de Gestion Clinica";
+            FormClosing += FrmPrincipal_FormClosing;
             Load += FrmPrincipal_Load;
             pnlMenu.ResumeLayout(false);
             pnlContenedor.ResumeLayout(false);
