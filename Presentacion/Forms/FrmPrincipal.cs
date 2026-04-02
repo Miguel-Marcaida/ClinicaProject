@@ -3,6 +3,7 @@ using Datos.Conexion;
 using Datos.Entidades;
 using Negocio.Soporte;
 using Presentacion.Forms;
+using System.Linq;
 
 namespace Presentacion
 {
@@ -20,12 +21,12 @@ namespace Presentacion
 
         #region Logica para mover la ventana sin bordes
 
-        private void pnlBarraTItulo_MouseDown(object sender, MouseEventArgs e)
+        private void Common_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLocation = new Point(-e.X, -e.Y);
         }
 
-        private void pnlBarraTItulo_MouseMove(object sender, MouseEventArgs e)
+        private void Common_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -34,57 +35,64 @@ namespace Presentacion
                 this.Location = mousePos;
             }
         }
+        // Mantenemos los handlers nombrados por el Designer pero delegan al método común.
+        private void pnlBarraTItulo_MouseDown(object sender, MouseEventArgs e) => Common_MouseDown(sender, e);
+        private void pnlBarraTItulo_MouseMove(object sender, MouseEventArgs e) => Common_MouseMove(sender, e);
+        private void lblModulo_MouseDown(object sender, MouseEventArgs e) => Common_MouseDown(sender, e);
+        private void lblModulo_MouseMove(object sender, MouseEventArgs e) => Common_MouseMove(sender, e);
+        private void lblUsuario_MouseDown(object sender, MouseEventArgs e) => Common_MouseDown(sender, e);
+        private void lblUsuario_MouseMove(object sender, MouseEventArgs e) => Common_MouseMove(sender, e);
 
-        private void lblModulo_MouseDown(object sender, MouseEventArgs e)
-        {
-            mouseLocation = new Point(-e.X, -e.Y);
-        }
-
-        private void lblModulo_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Point mousePos = Control.MousePosition;
-                mousePos.Offset(mouseLocation.X, mouseLocation.Y);
-                this.Location = mousePos;
-            }
-        }
-
-        private void lblUsuario_MouseDown(object sender, MouseEventArgs e)
-        {
-            mouseLocation = new Point(-e.X, -e.Y);
-        }
-
-        private void lblUsuario_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Point mousePos = Control.MousePosition;
-                mousePos.Offset(mouseLocation.X, mouseLocation.Y);
-                this.Location = mousePos;
-            }
-        }
+       
 
         #endregion
 
 
         #region Metodos para abrir formularios dentro del panel contenedor
 
-        private void AbrirFormularioEnPanel(object formHijo)
+        private void AbrirFormularioEnPanel(object formHijo, string nombrePermiso)
         {
+            // Validamos ANTES de hacer cualquier movimiento visual
+            if (!SesionUsuario.TienePermiso(nombrePermiso))
+            {
+                MessageBox.Show("No tenés permisos para acceder a este módulo.",
+                                "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             // Ocultamos los labels de bienvenida antes de cargar el form
             lblBienvenida.Visible = false;
             lblDetalleCuerpo.Visible = false;
             //if (picUser != null) picUser.Visible = false;
 
+            // Liberamos y limpiamos controles previos del panel
             if (this.pnlContenedor.Controls.Count > 0)
-                this.pnlContenedor.Controls.Clear();
+            {
+                // No disponer los labels persistentes: solo eliminar/dispone los controles dinámicos
+                var toRemove = this.pnlContenedor.Controls
+                                .Cast<Control>()
+                                .Where(c => c != lblBienvenida && c != lblDetalleCuerpo)
+                                .ToList();
 
-            Form fh = formHijo as Form;
+                foreach (var c in toRemove)
+                {
+                    this.pnlContenedor.Controls.Remove(c);
+                    c.Dispose();
+                }
+            }
+
+            // Comprobación nula y seguridad de tipo
+            if (formHijo is not Form fh)
+            {
+                MessageBox.Show("El objeto proporcionado no es un formulario válido.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+           // Form fh = formHijo as Form;
             fh.TopLevel = false;
             fh.FormBorderStyle = FormBorderStyle.None;
             fh.Dock = DockStyle.Fill;
-            fh.BackColor = Color.Red;
+            //fh.BackColor = Color.Red;
 
             this.pnlContenedor.Controls.Add(fh);
             //this.pnlContenedor.Tag = fh;
@@ -97,31 +105,7 @@ namespace Presentacion
         #endregion
 
 
-        private void btnProbarConexion_Click(object sender, EventArgs e)
-        {
-            // Instanciamos tu clase de la capa de Datos
-            Datos.Conexion.ConexionDB conexion = new Datos.Conexion.ConexionDB();
-
-            try
-            {
-                // Intentamos abrir el caño
-                using (var con = conexion.EstablecerConexion())
-                {
-                    if (con.State == System.Data.ConnectionState.Open)
-                    {
-                        MessageBox.Show("✅ ¡Conexión Exitosa! C# y MySQL ya se hablan.",
-                                        "Estado de la Base", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                // Al usar 'using', la conexión se cierra sola al terminar el bloque, es más limpio.
-            }
-            catch (Exception ex)
-            {
-                // Si algo falla (contraseña mal, servidor apagado, etc.) te lo dice acá
-                MessageBox.Show("❌ Error: " + ex.Message,
-                                "Fallo de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+       
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
@@ -166,8 +150,8 @@ namespace Presentacion
             lblModulo.Text = "GESTIÓN DE PACIENTES";
             ResaltarBotonActivo(btnPacientes);
 
-            // Al abrir el form, el método AbrirFormularioEnPanel ya limpia el panel
-            AbrirFormularioEnPanel(new FrmPacientes());
+            // Le pasamos el formulario Y el nombre del permiso que configuraste en la DB
+            AbrirFormularioEnPanel(new FrmPacientes(), "btnPacientes");
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -215,14 +199,28 @@ namespace Presentacion
 
         private void MostrarBienvenida()
         {
-            this.pnlContenedor.Controls.Clear();
+            
+            // No limpiamos todo: solo removemos controles dinámicos para preservar las etiquetas persistentes
+            var toRemove = this.pnlContenedor.Controls
+                            .Cast<Control>()
+                            .Where(c => c != lblBienvenida && c != lblDetalleCuerpo)
+                            .ToList();
+
+            foreach (var c in toRemove)
+            {
+                this.pnlContenedor.Controls.Remove(c);
+                c.Dispose();
+            }
 
             if (!pnlContenedor.Controls.Contains(lblBienvenida))
             {
                 this.pnlContenedor.Controls.Add(lblBienvenida);
-                this.pnlContenedor.Controls.Add(lblDetalleCuerpo);
             }
 
+            if (!pnlContenedor.Controls.Contains(lblDetalleCuerpo))
+            {
+                this.pnlContenedor.Controls.Add(lblDetalleCuerpo);
+            }
             if (SesionUsuario.UsuarioLogueado != null)
             {
                 // 1. Lógica de saludo

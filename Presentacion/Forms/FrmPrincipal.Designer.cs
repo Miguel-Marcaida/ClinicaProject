@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnProbarConexion = new Button();
             pnlMenu = new Panel();
             btnConfig = new Button();
             btnMedicos = new Button();
@@ -49,16 +48,6 @@
             pnlBarraTItulo.SuspendLayout();
             SuspendLayout();
             // 
-            // btnProbarConexion
-            // 
-            btnProbarConexion.Location = new Point(705, 519);
-            btnProbarConexion.Name = "btnProbarConexion";
-            btnProbarConexion.Size = new Size(120, 39);
-            btnProbarConexion.TabIndex = 0;
-            btnProbarConexion.Text = "Probar Conexion";
-            btnProbarConexion.UseVisualStyleBackColor = true;
-            btnProbarConexion.Click += btnProbarConexion_Click;
-            // 
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.FromArgb(30, 30, 30);
@@ -70,9 +59,9 @@
             pnlMenu.Controls.Add(pnlLogo);
             pnlMenu.Controls.Add(btnCerrarSesion);
             pnlMenu.Dock = DockStyle.Left;
-            pnlMenu.Location = new Point(0, 60);
+            pnlMenu.Location = new Point(0, 0);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(230, 590);
+            pnlMenu.Size = new Size(230, 650);
             pnlMenu.TabIndex = 1;
             // 
             // btnConfig
@@ -179,7 +168,7 @@
             btnCerrarSesion.FlatStyle = FlatStyle.Flat;
             btnCerrarSesion.Font = new Font("Segoe UI", 11.25F);
             btnCerrarSesion.ForeColor = Color.White;
-            btnCerrarSesion.Location = new Point(0, 530);
+            btnCerrarSesion.Location = new Point(0, 590);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Padding = new Padding(15, 0, 0, 0);
             btnCerrarSesion.Size = new Size(230, 60);
@@ -193,12 +182,11 @@
             // 
             pnlContenedor.BackColor = SystemColors.ButtonFace;
             pnlContenedor.Controls.Add(lblDetalleCuerpo);
-            pnlContenedor.Controls.Add(btnProbarConexion);
             pnlContenedor.Controls.Add(lblBienvenida);
             pnlContenedor.Dock = DockStyle.Fill;
-            pnlContenedor.Location = new Point(0, 0);
+            pnlContenedor.Location = new Point(230, 0);
             pnlContenedor.Name = "pnlContenedor";
-            pnlContenedor.Size = new Size(1100, 650);
+            pnlContenedor.Size = new Size(870, 650);
             pnlContenedor.TabIndex = 2;
             // 
             // lblDetalleCuerpo
@@ -228,9 +216,9 @@
             pnlBarraTItulo.Controls.Add(lblModulo);
             pnlBarraTItulo.Dock = DockStyle.Top;
             pnlBarraTItulo.ForeColor = Color.FromArgb(31, 41, 55);
-            pnlBarraTItulo.Location = new Point(0, 0);
+            pnlBarraTItulo.Location = new Point(230, 0);
             pnlBarraTItulo.Name = "pnlBarraTItulo";
-            pnlBarraTItulo.Size = new Size(1100, 60);
+            pnlBarraTItulo.Size = new Size(870, 60);
             pnlBarraTItulo.TabIndex = 3;
             pnlBarraTItulo.MouseDown += pnlBarraTItulo_MouseDown;
             pnlBarraTItulo.MouseMove += pnlBarraTItulo_MouseMove;
@@ -243,7 +231,7 @@
             btnCerrar.FlatStyle = FlatStyle.Flat;
             btnCerrar.Font = new Font("Verdana", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCerrar.ForeColor = Color.White;
-            btnCerrar.Location = new Point(1060, 10);
+            btnCerrar.Location = new Point(830, 10);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(35, 35);
             btnCerrar.TabIndex = 2;
@@ -257,7 +245,7 @@
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsuario.ForeColor = Color.White;
-            lblUsuario.Location = new Point(880, 22);
+            lblUsuario.Location = new Point(650, 22);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(117, 17);
             lblUsuario.TabIndex = 1;
@@ -284,9 +272,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1100, 650);
-            Controls.Add(pnlMenu);
             Controls.Add(pnlBarraTItulo);
             Controls.Add(pnlContenedor);
+            Controls.Add(pnlMenu);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
@@ -301,8 +289,6 @@
         }
 
         #endregion
-
-        private Button btnProbarConexion;
         private Panel pnlMenu;
         private Panel pnlContenedor;
         private Panel pnlBarraTItulo;
