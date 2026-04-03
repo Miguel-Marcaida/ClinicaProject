@@ -17,7 +17,7 @@ namespace Presentacion
             InitializeComponent();
             // Configuraciones estéticas iniciales
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea; // Evita que al maximizar tape la barra de tareas
-           
+
         }
 
         #region Logica para mover la ventana sin bordes
@@ -51,20 +51,24 @@ namespace Presentacion
 
         #region Metodos para abrir formularios dentro del panel contenedor
 
-
         private void AbrirFormularioEnPanel(object formHijo, string nombrePermiso)
         {
-            if (!SesionUsuario.TienePermiso(nombrePermiso))
+            /// --- NUEVO: BLOQUEO DE SEGURIDAD ---
+            // Si el permiso no es vacío (por ejemplo "Inicio" no lleva permiso) 
+            // y el usuario NO lo tiene, mostramos aviso y salimos.
+            if (!string.IsNullOrEmpty(nombrePermiso) && !SesionUsuario.TienePermiso(nombrePermiso))
             {
-                MessageBox.Show("No tenés permisos para acceder a este módulo.",
+                MessageBox.Show("No tiene permisos para acceder a este módulo.",
                                 "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
+            // Asegurar que el contenedor no tenga padding ni margin que introduzcan offsets
+            this.pnlContenedor.Padding = Padding.Empty;
+            this.pnlContenedor.Margin = Padding.Empty;
 
             lblBienvenida.Visible = false;
             lblDetalleCuerpo.Visible = false;
 
-            // Removemos dinámicos de forma segura (cerrar forms antes de dispose)
             this.pnlContenedor.SuspendLayout();
             try
             {
@@ -78,7 +82,7 @@ namespace Presentacion
                     this.pnlContenedor.Controls.Remove(c);
                     if (c is Form childForm)
                     {
-                        try { childForm.Close(); } catch { /* ignore */ }
+                        try { childForm.Close(); } catch { }
                         childForm.Dispose();
                     }
                     else
@@ -94,21 +98,36 @@ namespace Presentacion
                     return;
                 }
 
+                // Configuración robusta para que el form ocupe exactamente el panel
                 fh.TopLevel = false;
                 fh.FormBorderStyle = FormBorderStyle.None;
+                fh.StartPosition = FormStartPosition.Manual;
+                fh.Margin = Padding.Empty;
+                fh.Padding = Padding.Empty;
+                fh.Parent = this.pnlContenedor;
+
+                // Establecer Dock y bounds en orden seguro
                 fh.Dock = DockStyle.Fill;
+                fh.Location = Point.Empty;
+                fh.Bounds = this.pnlContenedor.ClientRectangle;
+                fh.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
                 this.pnlContenedor.Controls.Add(fh);
                 fh.BringToFront();
                 fh.Show();
+                fh.Refresh();
+
+
+                // Forzar layout/repintado del contenido
+                fh.PerformLayout();
+                this.pnlContenedor.PerformLayout();
+                this.pnlContenedor.Refresh();
             }
             finally
             {
                 this.pnlContenedor.ResumeLayout();
             }
         }
-
-
         #endregion
 
 
@@ -133,13 +152,13 @@ namespace Presentacion
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-
+            btnInicio.Visible = true; 
 
             // Seguridad
             btnPacientes.Visible = SesionUsuario.TienePermiso("btnPacientes");
             btnMedicos.Visible = SesionUsuario.TienePermiso("btnMedicos");
             btnTurnos.Visible = SesionUsuario.TienePermiso("btnTurnos");
-
+            btnGestionRoles.Visible = SesionUsuario.TienePermiso("btnGestionRoles"); // <--- AGREGAR ESTA
             // Mostramos la barra superior
             if (SesionUsuario.UsuarioLogueado != null)
             {
@@ -165,8 +184,9 @@ namespace Presentacion
 
         private void btnTurnos_Click(object sender, EventArgs e)
         {
-            // AbrirFormularioEnPanel(new FrmTurnos());
             lblModulo.Text = "AGENDA DE TURNOS";
+            ResaltarBotonActivo(btnTurnos);
+            AbrirFormularioEnPanel(new FrmTurnos(), "btnTurnos");
         }
 
         private void btnPacientes_Click(object sender, EventArgs e)
@@ -177,6 +197,17 @@ namespace Presentacion
             // Le pasamos el formulario Y el nombre del permiso que configuraste en la DB
             AbrirFormularioEnPanel(new FrmPacientes(), "btnPacientes");
         }
+
+        private void btnGestionRoles_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "CONFIGURACIÓN DE ROLES Y PERMISOS";
+            ResaltarBotonActivo(btnGestionRoles);
+
+            // Llamamos a tu método maestro. 
+            // "btnGestionRoles" es el nombre que debe existir en tu tabla 'formularios'
+            AbrirFormularioEnPanel(new FrmGestionRoles(), "btnGestionRoles");
+        }
+
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
@@ -291,6 +322,7 @@ namespace Presentacion
 
 
         #endregion
+
 
 
 

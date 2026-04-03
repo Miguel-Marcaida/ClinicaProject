@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             pnlMenu = new Panel();
+            pnlLogo = new Panel();
+            btnGestionRoles = new Button();
             btnConfig = new Button();
             btnMedicos = new Button();
             btnPacientes = new Button();
             btnTurnos = new Button();
             btnInicio = new Button();
-            pnlLogo = new Panel();
             btnCerrarSesion = new Button();
             pnlContenedor = new Panel();
             lblDetalleCuerpo = new Label();
@@ -51,18 +52,46 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.FromArgb(30, 30, 30);
+            pnlMenu.Controls.Add(btnGestionRoles);
             pnlMenu.Controls.Add(btnConfig);
             pnlMenu.Controls.Add(btnMedicos);
             pnlMenu.Controls.Add(btnPacientes);
             pnlMenu.Controls.Add(btnTurnos);
             pnlMenu.Controls.Add(btnInicio);
-            pnlMenu.Controls.Add(pnlLogo);
             pnlMenu.Controls.Add(btnCerrarSesion);
+            pnlMenu.Controls.Add(pnlLogo);
             pnlMenu.Dock = DockStyle.Left;
             pnlMenu.Location = new Point(0, 0);
             pnlMenu.Name = "pnlMenu";
             pnlMenu.Size = new Size(230, 650);
             pnlMenu.TabIndex = 1;
+            // 
+            // pnlLogo
+            // 
+            pnlLogo.BorderStyle = BorderStyle.Fixed3D;
+            pnlLogo.Dock = DockStyle.Top;
+            pnlLogo.Location = new Point(0, 0);
+            pnlLogo.Name = "pnlLogo";
+            pnlLogo.Size = new Size(230, 60);
+            pnlLogo.TabIndex = 7;
+            // 
+            // btnGestionRoles
+            // 
+            btnGestionRoles.Dock = DockStyle.Top;
+            btnGestionRoles.FlatAppearance.BorderSize = 0;
+            btnGestionRoles.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnGestionRoles.FlatStyle = FlatStyle.Flat;
+            btnGestionRoles.Font = new Font("Segoe UI", 11.25F);
+            btnGestionRoles.ForeColor = Color.White;
+            btnGestionRoles.Location = new Point(0, 360);
+            btnGestionRoles.Name = "btnGestionRoles";
+            btnGestionRoles.Padding = new Padding(15, 0, 0, 0);
+            btnGestionRoles.Size = new Size(230, 60);
+            btnGestionRoles.TabIndex = 9;
+            btnGestionRoles.Text = "🛡️  Gestion de Roles";
+            btnGestionRoles.TextAlign = ContentAlignment.MiddleLeft;
+            btnGestionRoles.UseVisualStyleBackColor = true;
+            btnGestionRoles.Click += btnGestionRoles_Click;
             // 
             // btnConfig
             // 
@@ -152,14 +181,6 @@
             btnInicio.UseVisualStyleBackColor = true;
             btnInicio.Click += btnInicio_Click;
             // 
-            // pnlLogo
-            // 
-            pnlLogo.Dock = DockStyle.Top;
-            pnlLogo.Location = new Point(0, 0);
-            pnlLogo.Name = "pnlLogo";
-            pnlLogo.Size = new Size(230, 60);
-            pnlLogo.TabIndex = 7;
-            // 
             // btnCerrarSesion
             // 
             btnCerrarSesion.Dock = DockStyle.Bottom;
@@ -180,19 +201,19 @@
             // 
             // pnlContenedor
             // 
-            pnlContenedor.BackColor = SystemColors.ButtonFace;
+            pnlContenedor.BackColor = Color.WhiteSmoke;
             pnlContenedor.Controls.Add(lblDetalleCuerpo);
             pnlContenedor.Controls.Add(lblBienvenida);
             pnlContenedor.Dock = DockStyle.Fill;
-            pnlContenedor.Location = new Point(230, 0);
+            pnlContenedor.Location = new Point(230, 60);
             pnlContenedor.Name = "pnlContenedor";
-            pnlContenedor.Size = new Size(870, 650);
+            pnlContenedor.Size = new Size(870, 590);
             pnlContenedor.TabIndex = 2;
             // 
             // lblDetalleCuerpo
             // 
             lblDetalleCuerpo.AutoSize = true;
-            lblDetalleCuerpo.Location = new Point(321, 579);
+            lblDetalleCuerpo.Location = new Point(321, 524);
             lblDetalleCuerpo.Name = "lblDetalleCuerpo";
             lblDetalleCuerpo.Size = new Size(48, 15);
             lblDetalleCuerpo.TabIndex = 2;
@@ -202,7 +223,7 @@
             // 
             lblBienvenida.AutoSize = true;
             lblBienvenida.Font = new Font("Roboto Bk", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBienvenida.Location = new Point(321, 477);
+            lblBienvenida.Location = new Point(321, 428);
             lblBienvenida.Name = "lblBienvenida";
             lblBienvenida.Size = new Size(186, 23);
             lblBienvenida.TabIndex = 1;
@@ -272,8 +293,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1100, 650);
-            Controls.Add(pnlBarraTItulo);
             Controls.Add(pnlContenedor);
+            Controls.Add(pnlBarraTItulo);
             Controls.Add(pnlMenu);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmPrincipal";
@@ -305,5 +326,6 @@
         private Label lblBienvenida;
         private Label lblDetalleCuerpo;
         private Button btnInicio;
+        private Button btnGestionRoles;
     }
 }

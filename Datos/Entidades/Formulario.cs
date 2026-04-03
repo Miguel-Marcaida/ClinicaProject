@@ -12,5 +12,11 @@ namespace Datos.Entidades
         public string nombre_control { get; set; } // El que coincide con el Name del botón
         public string etiqueta { get; set; }       // El texto que lee el humano
         public bool activo { get; set; }
+
+        // Constructor por defecto para evitar errores de inicialización
+        public Formulario()
+        {
+            activo = true;
+        }
     }
 }
