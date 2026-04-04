@@ -112,6 +112,8 @@
             // 
             // dgvUsuarios
             // 
+            dgvUsuarios.BackgroundColor = Color.White;
+            dgvUsuarios.BorderStyle = BorderStyle.Fixed3D;
             dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvUsuarios.Dock = DockStyle.Fill;
             dgvUsuarios.Location = new Point(0, 0);
@@ -135,22 +137,30 @@
             // 
             // btnVerFicha
             // 
-            btnVerFicha.Location = new Point(35, 21);
+            btnVerFicha.BackColor = Color.FromArgb(60, 60, 60);
+            btnVerFicha.FlatAppearance.BorderSize = 0;
+            btnVerFicha.FlatStyle = FlatStyle.Flat;
+            btnVerFicha.ForeColor = Color.White;
+            btnVerFicha.Location = new Point(53, 16);
             btnVerFicha.Name = "btnVerFicha";
-            btnVerFicha.Size = new Size(75, 23);
+            btnVerFicha.Size = new Size(90, 28);
             btnVerFicha.TabIndex = 0;
             btnVerFicha.Text = "Ver Ficha";
-            btnVerFicha.UseVisualStyleBackColor = true;
+            btnVerFicha.UseVisualStyleBackColor = false;
             btnVerFicha.Click += btnVerFicha_Click;
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(132, 21);
+            btnEliminar.BackColor = Color.FromArgb(60, 60, 60);
+            btnEliminar.FlatAppearance.BorderSize = 0;
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.ForeColor = Color.White;
+            btnEliminar.Location = new Point(149, 16);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(75, 23);
+            btnEliminar.Size = new Size(90, 28);
             btnEliminar.TabIndex = 3;
             btnEliminar.Text = "Dar De Baja";
-            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.UseVisualStyleBackColor = false;
             btnEliminar.Click += btnEliminar_Click;
             // 
             // gbBusqueda
@@ -168,12 +178,16 @@
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(611, 23);
+            btnBuscar.BackColor = Color.FromArgb(0, 122, 204);
+            btnBuscar.FlatAppearance.BorderSize = 0;
+            btnBuscar.FlatStyle = FlatStyle.Flat;
+            btnBuscar.ForeColor = Color.White;
+            btnBuscar.Location = new Point(605, 19);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 23);
+            btnBuscar.Size = new Size(90, 28);
             btnBuscar.TabIndex = 2;
             btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.UseVisualStyleBackColor = false;
             btnBuscar.Click += btnBuscar_Click;
             // 
             // txtBuscar
@@ -219,32 +233,44 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(76, 57);
+            btnGuardar.BackColor = Color.FromArgb(0, 122, 204);
+            btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatStyle = FlatStyle.Flat;
+            btnGuardar.ForeColor = Color.White;
+            btnGuardar.Location = new Point(132, 67);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(75, 23);
+            btnGuardar.Size = new Size(127, 28);
             btnGuardar.TabIndex = 1;
             btnGuardar.Text = "Guardar";
-            btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(243, 57);
+            btnCancelar.BackColor = Color.FromArgb(60, 60, 60);
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(257, 67);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(75, 23);
+            btnCancelar.Size = new Size(127, 28);
             btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // btnNuevo
             // 
-            btnNuevo.Location = new Point(76, 19);
+            btnNuevo.BackColor = Color.FromArgb(60, 60, 60);
+            btnNuevo.FlatAppearance.BorderSize = 0;
+            btnNuevo.FlatStyle = FlatStyle.Flat;
+            btnNuevo.ForeColor = Color.White;
+            btnNuevo.Location = new Point(5, 67);
             btnNuevo.Name = "btnNuevo";
-            btnNuevo.Size = new Size(75, 23);
+            btnNuevo.Size = new Size(127, 28);
             btnNuevo.TabIndex = 2;
             btnNuevo.Text = "Nuevo";
-            btnNuevo.UseVisualStyleBackColor = true;
+            btnNuevo.UseVisualStyleBackColor = false;
             btnNuevo.Click += btnNuevo_Click;
             // 
             // gbDatosCuenta

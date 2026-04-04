@@ -32,7 +32,7 @@ namespace Negocio.Servicios
 
         #region Métodos de Escritura
 
-        public void ActualizarRolesUsuario(int idUsuario, List<int> idsRoles)
+        public bool ActualizarRolesUsuario(int idUsuario, List<int> idsRoles)
         {
             try
             {
@@ -44,6 +44,7 @@ namespace Negocio.Servicios
 
                 // Delegamos la transacción al repositorio
                 _repo.ActualizarRolesUsuario(idUsuario, idsRoles);
+                return true;
             }
             catch (Exception ex)
             {

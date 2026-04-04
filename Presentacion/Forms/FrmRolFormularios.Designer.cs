@@ -366,7 +366,7 @@
             dgvFormulario.TabIndex = 0;
             dgvFormulario.CellClick += dgvFormulario_CellClick;
             // 
-            // FrmGestionRoles
+            // FrmRolFormularios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -375,7 +375,7 @@
             Controls.Add(tbcGestionRoles);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmGestionRoles";
+            Name = "FrmRolFormularios";
             Text = "FrmGestionRoles";
             Load += FrmGestionRoles_Load;
             tbcGestionRoles.ResumeLayout(false);

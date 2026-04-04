@@ -35,24 +35,22 @@
             clbRoles = new CheckedListBox();
             lblPermisosRol = new Label();
             pnlBotones = new Panel();
-            btnGuardar = new Button();
+            btnGuardarAsignacion = new Button();
             btnLimpiar = new Button();
             groupBox1 = new GroupBox();
-            chkRolActivo = new CheckBox();
-            txtNombreRol = new TextBox();
+            chkUsuarioActivo = new CheckBox();
+            txtUsername = new TextBox();
             pnlLista = new Panel();
             dgvUsuarios = new DataGridView();
             tabPage2 = new TabPage();
             pnlEdicionFormulario = new Panel();
             pnlBtnFormulario = new Panel();
-            btnGuardarFormulario = new Button();
-            btnNuevoFormulario = new Button();
+            btnGuardarRol = new Button();
+            btnNuevoRol = new Button();
             gbDatosFormularios = new GroupBox();
-            lblNombreControl = new Label();
-            lblEtiqueta = new Label();
-            txtNombreControl = new TextBox();
-            txtEtiqueta = new TextBox();
-            chkFormActivo = new CheckBox();
+            lblNombreRol = new Label();
+            txtNombreRol = new TextBox();
+            chkRolActivo = new CheckBox();
             pnlGrillaFormulario = new Panel();
             dgvRoles = new DataGridView();
             tbcGestionUsuarios.SuspendLayout();
@@ -100,9 +98,9 @@
             pnlEdicion.Controls.Add(pnlBotones);
             pnlEdicion.Controls.Add(groupBox1);
             pnlEdicion.Dock = DockStyle.Fill;
-            pnlEdicion.Location = new Point(355, 3);
+            pnlEdicion.Location = new Point(503, 3);
             pnlEdicion.Name = "pnlEdicion";
-            pnlEdicion.Size = new Size(434, 416);
+            pnlEdicion.Size = new Size(286, 416);
             pnlEdicion.TabIndex = 1;
             // 
             // pnlPermiso
@@ -112,7 +110,7 @@
             pnlPermiso.Dock = DockStyle.Fill;
             pnlPermiso.Location = new Point(0, 100);
             pnlPermiso.Name = "pnlPermiso";
-            pnlPermiso.Size = new Size(434, 216);
+            pnlPermiso.Size = new Size(286, 216);
             pnlPermiso.TabIndex = 2;
             // 
             // clbRoles
@@ -122,7 +120,7 @@
             clbRoles.FormattingEnabled = true;
             clbRoles.Location = new Point(0, 27);
             clbRoles.Name = "clbRoles";
-            clbRoles.Size = new Size(434, 189);
+            clbRoles.Size = new Size(286, 189);
             clbRoles.TabIndex = 1;
             // 
             // lblPermisosRol
@@ -139,28 +137,29 @@
             // 
             // pnlBotones
             // 
-            pnlBotones.Controls.Add(btnGuardar);
+            pnlBotones.Controls.Add(btnGuardarAsignacion);
             pnlBotones.Controls.Add(btnLimpiar);
             pnlBotones.Dock = DockStyle.Bottom;
             pnlBotones.Location = new Point(0, 316);
             pnlBotones.Name = "pnlBotones";
             pnlBotones.Padding = new Padding(8);
-            pnlBotones.Size = new Size(434, 100);
+            pnlBotones.Size = new Size(286, 100);
             pnlBotones.TabIndex = 1;
             // 
-            // btnGuardar
+            // btnGuardarAsignacion
             // 
-            btnGuardar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnGuardar.BackColor = Color.FromArgb(0, 122, 204);
-            btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(320, 46);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(90, 28);
-            btnGuardar.TabIndex = 1;
-            btnGuardar.Text = "Guardar";
-            btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardarAsignacion.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGuardarAsignacion.BackColor = Color.FromArgb(0, 122, 204);
+            btnGuardarAsignacion.FlatAppearance.BorderSize = 0;
+            btnGuardarAsignacion.FlatStyle = FlatStyle.Flat;
+            btnGuardarAsignacion.ForeColor = Color.White;
+            btnGuardarAsignacion.Location = new Point(172, 46);
+            btnGuardarAsignacion.Name = "btnGuardarAsignacion";
+            btnGuardarAsignacion.Size = new Size(90, 28);
+            btnGuardarAsignacion.TabIndex = 1;
+            btnGuardarAsignacion.Text = "Guardar";
+            btnGuardarAsignacion.UseVisualStyleBackColor = false;
+            btnGuardarAsignacion.Click += btnGuardarAsignacion_Click;
             // 
             // btnLimpiar
             // 
@@ -175,35 +174,36 @@
             btnLimpiar.TabIndex = 0;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(chkRolActivo);
-            groupBox1.Controls.Add(txtNombreRol);
+            groupBox1.Controls.Add(chkUsuarioActivo);
+            groupBox1.Controls.Add(txtUsername);
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(434, 100);
+            groupBox1.Size = new Size(286, 100);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos del Usuario";
             // 
-            // chkRolActivo
+            // chkUsuarioActivo
             // 
-            chkRolActivo.AutoSize = true;
-            chkRolActivo.Location = new Point(320, 38);
-            chkRolActivo.Name = "chkRolActivo";
-            chkRolActivo.Size = new Size(60, 19);
-            chkRolActivo.TabIndex = 1;
-            chkRolActivo.Text = "Activo";
-            chkRolActivo.UseVisualStyleBackColor = true;
+            chkUsuarioActivo.AutoSize = true;
+            chkUsuarioActivo.Location = new Point(16, 65);
+            chkUsuarioActivo.Name = "chkUsuarioActivo";
+            chkUsuarioActivo.Size = new Size(60, 19);
+            chkUsuarioActivo.TabIndex = 1;
+            chkUsuarioActivo.Text = "Activo";
+            chkUsuarioActivo.UseVisualStyleBackColor = true;
             // 
-            // txtNombreRol
+            // txtUsername
             // 
-            txtNombreRol.Location = new Point(16, 36);
-            txtNombreRol.Name = "txtNombreRol";
-            txtNombreRol.Size = new Size(220, 23);
-            txtNombreRol.TabIndex = 0;
+            txtUsername.Location = new Point(16, 36);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(220, 23);
+            txtUsername.TabIndex = 0;
             // 
             // pnlLista
             // 
@@ -211,18 +211,19 @@
             pnlLista.Dock = DockStyle.Left;
             pnlLista.Location = new Point(3, 3);
             pnlLista.Name = "pnlLista";
-            pnlLista.Size = new Size(352, 416);
+            pnlLista.Size = new Size(500, 416);
             pnlLista.TabIndex = 0;
             // 
             // dgvUsuarios
             // 
-            dgvUsuarios.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgvUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUsuarios.Dock = DockStyle.Fill;
             dgvUsuarios.Location = new Point(0, 0);
             dgvUsuarios.Name = "dgvUsuarios";
             dgvUsuarios.RowHeadersVisible = false;
-            dgvUsuarios.Size = new Size(352, 732);
+            dgvUsuarios.Size = new Size(500, 416);
             dgvUsuarios.TabIndex = 0;
+            dgvUsuarios.CellClick += dgvUsuarios_CellClick;
             // 
             // tabPage2
             // 
@@ -249,98 +250,82 @@
             // 
             // pnlBtnFormulario
             // 
-            pnlBtnFormulario.Controls.Add(btnGuardarFormulario);
-            pnlBtnFormulario.Controls.Add(btnNuevoFormulario);
+            pnlBtnFormulario.Controls.Add(btnGuardarRol);
+            pnlBtnFormulario.Controls.Add(btnNuevoRol);
             pnlBtnFormulario.Dock = DockStyle.Fill;
             pnlBtnFormulario.Location = new Point(513, 12);
             pnlBtnFormulario.Name = "pnlBtnFormulario";
             pnlBtnFormulario.Size = new Size(261, 109);
             pnlBtnFormulario.TabIndex = 8;
             // 
-            // btnGuardarFormulario
+            // btnGuardarRol
             // 
-            btnGuardarFormulario.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnGuardarFormulario.BackColor = Color.FromArgb(0, 122, 204);
-            btnGuardarFormulario.FlatAppearance.BorderSize = 0;
-            btnGuardarFormulario.FlatStyle = FlatStyle.Flat;
-            btnGuardarFormulario.ForeColor = Color.White;
-            btnGuardarFormulario.Location = new Point(128, 76);
-            btnGuardarFormulario.Name = "btnGuardarFormulario";
-            btnGuardarFormulario.Size = new Size(127, 28);
-            btnGuardarFormulario.TabIndex = 4;
-            btnGuardarFormulario.Text = "Guardar";
-            btnGuardarFormulario.UseVisualStyleBackColor = false;
+            btnGuardarRol.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGuardarRol.BackColor = Color.FromArgb(0, 122, 204);
+            btnGuardarRol.FlatAppearance.BorderSize = 0;
+            btnGuardarRol.FlatStyle = FlatStyle.Flat;
+            btnGuardarRol.ForeColor = Color.White;
+            btnGuardarRol.Location = new Point(128, 76);
+            btnGuardarRol.Name = "btnGuardarRol";
+            btnGuardarRol.Size = new Size(127, 28);
+            btnGuardarRol.TabIndex = 4;
+            btnGuardarRol.Text = "Guardar";
+            btnGuardarRol.UseVisualStyleBackColor = false;
+            btnGuardarRol.Click += btnGuardarRol_Click;
             // 
-            // btnNuevoFormulario
+            // btnNuevoRol
             // 
-            btnNuevoFormulario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnNuevoFormulario.BackColor = Color.FromArgb(60, 60, 60);
-            btnNuevoFormulario.FlatAppearance.BorderSize = 0;
-            btnNuevoFormulario.FlatStyle = FlatStyle.Flat;
-            btnNuevoFormulario.ForeColor = Color.White;
-            btnNuevoFormulario.Location = new Point(128, 18);
-            btnNuevoFormulario.Name = "btnNuevoFormulario";
-            btnNuevoFormulario.Size = new Size(127, 28);
-            btnNuevoFormulario.TabIndex = 5;
-            btnNuevoFormulario.Text = "Nuevo";
-            btnNuevoFormulario.UseVisualStyleBackColor = false;
+            btnNuevoRol.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNuevoRol.BackColor = Color.FromArgb(60, 60, 60);
+            btnNuevoRol.FlatAppearance.BorderSize = 0;
+            btnNuevoRol.FlatStyle = FlatStyle.Flat;
+            btnNuevoRol.ForeColor = Color.White;
+            btnNuevoRol.Location = new Point(128, 18);
+            btnNuevoRol.Name = "btnNuevoRol";
+            btnNuevoRol.Size = new Size(127, 28);
+            btnNuevoRol.TabIndex = 5;
+            btnNuevoRol.Text = "Nuevo";
+            btnNuevoRol.UseVisualStyleBackColor = false;
+            btnNuevoRol.Click += btnNuevoRol_Click;
             // 
             // gbDatosFormularios
             // 
-            gbDatosFormularios.Controls.Add(lblNombreControl);
-            gbDatosFormularios.Controls.Add(lblEtiqueta);
-            gbDatosFormularios.Controls.Add(txtNombreControl);
-            gbDatosFormularios.Controls.Add(txtEtiqueta);
-            gbDatosFormularios.Controls.Add(chkFormActivo);
+            gbDatosFormularios.Controls.Add(lblNombreRol);
+            gbDatosFormularios.Controls.Add(txtNombreRol);
+            gbDatosFormularios.Controls.Add(chkRolActivo);
             gbDatosFormularios.Dock = DockStyle.Left;
             gbDatosFormularios.Location = new Point(12, 12);
             gbDatosFormularios.Name = "gbDatosFormularios";
             gbDatosFormularios.Size = new Size(501, 109);
             gbDatosFormularios.TabIndex = 7;
             gbDatosFormularios.TabStop = false;
-            gbDatosFormularios.Text = "ATENCION CON LOS DATOS DEL FORMULARIO";
+            gbDatosFormularios.Text = "Roles";
             // 
-            // lblNombreControl
+            // lblNombreRol
             // 
-            lblNombreControl.AutoSize = true;
-            lblNombreControl.Location = new Point(36, 24);
-            lblNombreControl.Name = "lblNombreControl";
-            lblNombreControl.Size = new Size(110, 15);
-            lblNombreControl.TabIndex = 0;
-            lblNombreControl.Text = "Nombre de Control";
+            lblNombreRol.AutoSize = true;
+            lblNombreRol.Location = new Point(29, 49);
+            lblNombreRol.Name = "lblNombreRol";
+            lblNombreRol.Size = new Size(87, 15);
+            lblNombreRol.TabIndex = 0;
+            lblNombreRol.Text = "Nombre de Rol";
             // 
-            // lblEtiqueta
+            // txtNombreRol
             // 
-            lblEtiqueta.AutoSize = true;
-            lblEtiqueta.Location = new Point(96, 75);
-            lblEtiqueta.Name = "lblEtiqueta";
-            lblEtiqueta.Size = new Size(50, 15);
-            lblEtiqueta.TabIndex = 1;
-            lblEtiqueta.Text = "Etiqueta";
+            txtNombreRol.Location = new Point(154, 46);
+            txtNombreRol.Name = "txtNombreRol";
+            txtNombreRol.Size = new Size(220, 23);
+            txtNombreRol.TabIndex = 2;
             // 
-            // txtNombreControl
+            // chkRolActivo
             // 
-            txtNombreControl.Location = new Point(161, 21);
-            txtNombreControl.Name = "txtNombreControl";
-            txtNombreControl.Size = new Size(220, 23);
-            txtNombreControl.TabIndex = 2;
-            // 
-            // txtEtiqueta
-            // 
-            txtEtiqueta.Location = new Point(161, 72);
-            txtEtiqueta.Name = "txtEtiqueta";
-            txtEtiqueta.Size = new Size(220, 23);
-            txtEtiqueta.TabIndex = 3;
-            // 
-            // chkFormActivo
-            // 
-            chkFormActivo.AutoSize = true;
-            chkFormActivo.Location = new Point(400, 24);
-            chkFormActivo.Name = "chkFormActivo";
-            chkFormActivo.Size = new Size(60, 19);
-            chkFormActivo.TabIndex = 6;
-            chkFormActivo.Text = "Activo";
-            chkFormActivo.UseVisualStyleBackColor = true;
+            chkRolActivo.AutoSize = true;
+            chkRolActivo.Location = new Point(393, 49);
+            chkRolActivo.Name = "chkRolActivo";
+            chkRolActivo.Size = new Size(60, 19);
+            chkRolActivo.TabIndex = 6;
+            chkRolActivo.Text = "Activo";
+            chkRolActivo.UseVisualStyleBackColor = true;
             // 
             // pnlGrillaFormulario
             // 
@@ -359,6 +344,7 @@
             dgvRoles.Name = "dgvRoles";
             dgvRoles.Size = new Size(786, 416);
             dgvRoles.TabIndex = 0;
+            dgvRoles.CellClick += dgvRoles_CellClick;
             // 
             // FrmUsuarioRoles
             // 
@@ -400,24 +386,22 @@
         private CheckedListBox clbRoles;
         private Label lblPermisosRol;
         private Panel pnlBotones;
-        private Button btnGuardar;
+        private Button btnGuardarAsignacion;
         private Button btnLimpiar;
         private GroupBox groupBox1;
-        private CheckBox chkRolActivo;
-        private TextBox txtNombreRol;
+        private CheckBox chkUsuarioActivo;
+        private TextBox txtUsername;
         private Panel pnlLista;
         private DataGridView dgvUsuarios;
         private TabPage tabPage2;
         private Panel pnlEdicionFormulario;
         private Panel pnlBtnFormulario;
-        private Button btnGuardarFormulario;
-        private Button btnNuevoFormulario;
+        private Button btnGuardarRol;
+        private Button btnNuevoRol;
         private GroupBox gbDatosFormularios;
-        private Label lblNombreControl;
-        private Label lblEtiqueta;
-        private TextBox txtNombreControl;
-        private TextBox txtEtiqueta;
-        private CheckBox chkFormActivo;
+        private Label lblNombreRol;
+        private TextBox txtNombreRol;
+        private CheckBox chkRolActivo;
         private Panel pnlGrillaFormulario;
         private DataGridView dgvRoles;
     }
