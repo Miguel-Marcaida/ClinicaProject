@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             pnlMenu = new Panel();
-            pnlLogo = new Panel();
-            btnGestionRoles = new Button();
-            btnConfig = new Button();
+            btnUsuarios = new Button();
+            btnRolFormularios = new Button();
+            btnUsuarioRoles = new Button();
             btnMedicos = new Button();
             btnPacientes = new Button();
             btnTurnos = new Button();
             btnInicio = new Button();
             btnCerrarSesion = new Button();
+            pnlLogo = new Panel();
             pnlContenedor = new Panel();
             lblDetalleCuerpo = new Label();
             lblBienvenida = new Label();
@@ -52,8 +53,9 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.FromArgb(30, 30, 30);
-            pnlMenu.Controls.Add(btnGestionRoles);
-            pnlMenu.Controls.Add(btnConfig);
+            pnlMenu.Controls.Add(btnUsuarios);
+            pnlMenu.Controls.Add(btnRolFormularios);
+            pnlMenu.Controls.Add(btnUsuarioRoles);
             pnlMenu.Controls.Add(btnMedicos);
             pnlMenu.Controls.Add(btnPacientes);
             pnlMenu.Controls.Add(btnTurnos);
@@ -66,49 +68,59 @@
             pnlMenu.Size = new Size(230, 650);
             pnlMenu.TabIndex = 1;
             // 
-            // pnlLogo
+            // btnUsuarios
             // 
-            pnlLogo.BorderStyle = BorderStyle.Fixed3D;
-            pnlLogo.Dock = DockStyle.Top;
-            pnlLogo.Location = new Point(0, 0);
-            pnlLogo.Name = "pnlLogo";
-            pnlLogo.Size = new Size(230, 60);
-            pnlLogo.TabIndex = 7;
+            btnUsuarios.Dock = DockStyle.Top;
+            btnUsuarios.FlatAppearance.BorderSize = 0;
+            btnUsuarios.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnUsuarios.FlatStyle = FlatStyle.Flat;
+            btnUsuarios.Font = new Font("Segoe UI", 11.25F);
+            btnUsuarios.ForeColor = Color.White;
+            btnUsuarios.Location = new Point(0, 420);
+            btnUsuarios.Name = "btnUsuarios";
+            btnUsuarios.Padding = new Padding(15, 0, 0, 0);
+            btnUsuarios.Size = new Size(230, 60);
+            btnUsuarios.TabIndex = 10;
+            btnUsuarios.Text = "👤 Gestión de Usuarios";
+            btnUsuarios.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsuarios.UseVisualStyleBackColor = true;
+            btnUsuarios.Click += btnUsuarios_Click;
             // 
-            // btnGestionRoles
+            // btnRolFormularios
             // 
-            btnGestionRoles.Dock = DockStyle.Top;
-            btnGestionRoles.FlatAppearance.BorderSize = 0;
-            btnGestionRoles.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
-            btnGestionRoles.FlatStyle = FlatStyle.Flat;
-            btnGestionRoles.Font = new Font("Segoe UI", 11.25F);
-            btnGestionRoles.ForeColor = Color.White;
-            btnGestionRoles.Location = new Point(0, 360);
-            btnGestionRoles.Name = "btnGestionRoles";
-            btnGestionRoles.Padding = new Padding(15, 0, 0, 0);
-            btnGestionRoles.Size = new Size(230, 60);
-            btnGestionRoles.TabIndex = 9;
-            btnGestionRoles.Text = "🛡️  Gestion de Roles";
-            btnGestionRoles.TextAlign = ContentAlignment.MiddleLeft;
-            btnGestionRoles.UseVisualStyleBackColor = true;
-            btnGestionRoles.Click += btnGestionRoles_Click;
+            btnRolFormularios.Dock = DockStyle.Top;
+            btnRolFormularios.FlatAppearance.BorderSize = 0;
+            btnRolFormularios.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnRolFormularios.FlatStyle = FlatStyle.Flat;
+            btnRolFormularios.Font = new Font("Segoe UI", 11.25F);
+            btnRolFormularios.ForeColor = Color.White;
+            btnRolFormularios.Location = new Point(0, 360);
+            btnRolFormularios.Name = "btnRolFormularios";
+            btnRolFormularios.Padding = new Padding(15, 0, 0, 0);
+            btnRolFormularios.Size = new Size(230, 60);
+            btnRolFormularios.TabIndex = 9;
+            btnRolFormularios.Text = "🛡️  Permisos de Accesos";
+            btnRolFormularios.TextAlign = ContentAlignment.MiddleLeft;
+            btnRolFormularios.UseVisualStyleBackColor = true;
+            btnRolFormularios.Click += btnRolFormularios_Click;
             // 
-            // btnConfig
+            // btnUsuarioRoles
             // 
-            btnConfig.Dock = DockStyle.Top;
-            btnConfig.FlatAppearance.BorderSize = 0;
-            btnConfig.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
-            btnConfig.FlatStyle = FlatStyle.Flat;
-            btnConfig.Font = new Font("Segoe UI", 11.25F);
-            btnConfig.ForeColor = Color.White;
-            btnConfig.Location = new Point(0, 300);
-            btnConfig.Name = "btnConfig";
-            btnConfig.Padding = new Padding(15, 0, 0, 0);
-            btnConfig.Size = new Size(230, 60);
-            btnConfig.TabIndex = 5;
-            btnConfig.Text = "⚙️  Configuración";
-            btnConfig.TextAlign = ContentAlignment.MiddleLeft;
-            btnConfig.UseVisualStyleBackColor = true;
+            btnUsuarioRoles.Dock = DockStyle.Top;
+            btnUsuarioRoles.FlatAppearance.BorderSize = 0;
+            btnUsuarioRoles.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 122, 204);
+            btnUsuarioRoles.FlatStyle = FlatStyle.Flat;
+            btnUsuarioRoles.Font = new Font("Segoe UI", 11.25F);
+            btnUsuarioRoles.ForeColor = Color.White;
+            btnUsuarioRoles.Location = new Point(0, 300);
+            btnUsuarioRoles.Name = "btnUsuarioRoles";
+            btnUsuarioRoles.Padding = new Padding(15, 0, 0, 0);
+            btnUsuarioRoles.Size = new Size(230, 60);
+            btnUsuarioRoles.TabIndex = 5;
+            btnUsuarioRoles.Text = "🔑 Roles por Usuario";
+            btnUsuarioRoles.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsuarioRoles.UseVisualStyleBackColor = true;
+            btnUsuarioRoles.Click += btnUsuarioRoles_Click;
             // 
             // btnMedicos
             // 
@@ -198,6 +210,15 @@
             btnCerrarSesion.TextAlign = ContentAlignment.MiddleLeft;
             btnCerrarSesion.UseVisualStyleBackColor = true;
             btnCerrarSesion.Click += btnCerrarSesion_Click;
+            // 
+            // pnlLogo
+            // 
+            pnlLogo.BorderStyle = BorderStyle.Fixed3D;
+            pnlLogo.Dock = DockStyle.Top;
+            pnlLogo.Location = new Point(0, 0);
+            pnlLogo.Name = "pnlLogo";
+            pnlLogo.Size = new Size(230, 60);
+            pnlLogo.TabIndex = 7;
             // 
             // pnlContenedor
             // 
@@ -318,7 +339,7 @@
         private Label lblUsuario;
         private Label lblModulo;
         private Button btnCerrarSesion;
-        private Button btnConfig;
+        private Button btnUsuarioRoles;
         private Button btnMedicos;
         private Button btnPacientes;
         private Button btnTurnos;
@@ -326,6 +347,7 @@
         private Label lblBienvenida;
         private Label lblDetalleCuerpo;
         private Button btnInicio;
-        private Button btnGestionRoles;
+        private Button btnRolFormularios;
+        private Button btnUsuarios;
     }
 }

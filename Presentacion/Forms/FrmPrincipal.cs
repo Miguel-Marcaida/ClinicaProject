@@ -152,13 +152,17 @@ namespace Presentacion
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            btnInicio.Visible = true; 
+            btnInicio.Visible = true;
 
             // Seguridad
             btnPacientes.Visible = SesionUsuario.TienePermiso("btnPacientes");
             btnMedicos.Visible = SesionUsuario.TienePermiso("btnMedicos");
             btnTurnos.Visible = SesionUsuario.TienePermiso("btnTurnos");
-            btnGestionRoles.Visible = SesionUsuario.TienePermiso("btnGestionRoles"); // <--- AGREGAR ESTA
+
+
+            btnRolFormularios.Visible = SesionUsuario.TienePermiso("btnRolFormularios"); // <--- AGREGAR ESTA
+            btnUsuarioRoles.Visible = SesionUsuario.TienePermiso("btnUsuarioRoles");
+            btnUsuarios.Visible = SesionUsuario.TienePermiso("btnUsuarios");
             // Mostramos la barra superior
             if (SesionUsuario.UsuarioLogueado != null)
             {
@@ -198,15 +202,7 @@ namespace Presentacion
             AbrirFormularioEnPanel(new FrmPacientes(), "btnPacientes");
         }
 
-        private void btnGestionRoles_Click(object sender, EventArgs e)
-        {
-            lblModulo.Text = "CONFIGURACIÓN DE ROLES Y PERMISOS";
-            ResaltarBotonActivo(btnGestionRoles);
-
-            // Llamamos a tu método maestro. 
-            // "btnGestionRoles" es el nombre que debe existir en tu tabla 'formularios'
-            AbrirFormularioEnPanel(new FrmGestionRoles(), "btnGestionRoles");
-        }
+      
 
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
@@ -228,6 +224,7 @@ namespace Presentacion
             }
 
         }
+
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
@@ -326,6 +323,30 @@ namespace Presentacion
 
 
 
-        
+
+
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "GESTION DE USUARIOS";
+            ResaltarBotonActivo(btnUsuarios);
+
+            AbrirFormularioEnPanel(new FrmUsuarios(), "btnUsuarios");
+        }
+
+        private void btnUsuarioRoles_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "ASIGNACION DE ROLES";
+            ResaltarBotonActivo(btnUsuarioRoles);
+
+            AbrirFormularioEnPanel(new FrmUsuarioRoles(), "btnUsuarioRoles");
+        }
+
+        private void btnRolFormularios_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "GESTION Y SEGURIDAD DE PANTALLAS";
+            ResaltarBotonActivo(btnRolFormularios);
+
+            AbrirFormularioEnPanel(new FrmRolFormularios(), "btnRolFormularios");
+        }
     }
 }

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Datos.Entidades
 {
-    public class Usuario
+    public class Usuario:Persona
     {
 
         public int id_usuario { get; set; }
-        public int id_persona { get; set; }
+        // id_persona ya lo trae de la clase base (Persona)
+
         public string username { get; set; }
         public string password_hash { get; set; }
-        public bool activo { get; set; }
 
-        // --- Datos de la persona vinculada ---
-        public string nombre_completo { get; set; }
-        public string email { get; set; }
+        // Usamos 'new' si queremos que el 'activo' del login 
+        // sea independiente del 'activo' de la persona física.
+        public new bool activo { get; set; }
 
         // --- SEGURIDAD Y ROLES ---
-        public string nombre_rol { get; set; } // <--- AGREGADO AQUÍ
+        public string nombre_rol { get; set; }
         public List<string> permisos { get; set; }
 
         public Usuario()

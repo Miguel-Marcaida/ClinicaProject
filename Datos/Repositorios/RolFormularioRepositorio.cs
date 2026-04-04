@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace Datos.Repositorios
 {
-    public class RolFomularioRepositorio
+    public class RolFormularioRepositorio
     {
         private ConexionDB conexion = new ConexionDB();
 

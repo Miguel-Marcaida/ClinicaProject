@@ -10,17 +10,17 @@ using Negocio.Servicios;
 
 namespace Presentacion.Forms
 {
-    public partial class FrmGestionRoles : Form
+    public partial class FrmRolFormularios : Form
     {
         #region Atributos y Constructor
         private RolService _rolService = new RolService();
         private FormularioService _formularioService = new FormularioService();
-        private RolFomularioRepositorio _rolFormularioRepo = new RolFomularioRepositorio();
+        private RolFormularioService _rolFormularioService = new RolFormularioService();
 
         private int _idRolSeleccionado = 0;
         private int _idFormularioSeleccionado = 0;
 
-        public FrmGestionRoles()
+        public FrmRolFormularios()
         {
             InitializeComponent();
         }
@@ -84,7 +84,7 @@ namespace Presentacion.Forms
                     clbFormularios.SetItemChecked(i, false);
 
                 // Buscar permisos en la DB
-                List<int> idsPermisos = _rolFormularioRepo.obtenerIdsFormulariosPorRol(_idRolSeleccionado);
+                List<int> idsPermisos = _rolFormularioService.ObtenerIdsFormulariosPorRol(_idRolSeleccionado);
 
                 // Tildar los que correspondan
                 for (int i = 0; i < clbFormularios.Items.Count; i++)
@@ -123,7 +123,7 @@ namespace Presentacion.Forms
                     .Select(f => f.id_formulario)
                     .ToList();
 
-                _rolFormularioRepo.ActualizarPermisos(_idRolSeleccionado, idsSeleccionados);
+                _rolFormularioService.ActualizarPermisos(_idRolSeleccionado, idsSeleccionados);
 
                 MessageBox.Show($"Permisos de '{txtNombreRol.Text}' sincronizados correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 RefrescarTodo();
